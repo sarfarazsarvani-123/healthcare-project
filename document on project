@@ -1,0 +1,533 @@
+# Healthcare Operations & Performance Analytics
+
+## 1. Project Overview
+
+The **Healthcare Operations & Performance Analytics** project focuses on analyzing healthcare data to understand patient patterns, hospital operations, admission trends, waiting times, and department-level performance.
+
+The project contains **15,000+ healthcare records**. The analysis follows an end-to-end data analytics process, including data understanding, column extraction, data cleaning, data standardization, Exploratory Data Analysis (EDA), KPI development, data visualization, and business insight generation.
+
+Tools Used
+
+* **Python** – Data cleaning, transformation, standardization, and EDA
+* **Pandas** – Data manipulation and analysis
+* **NumPy** – Numerical analysis
+* **Matplotlib** – Data visualization
+* **Power BI** – Interactive dashboard development and KPI reporting
+* **DAX** – KPI and measure creation
+* **Excel** – Data validation and supporting analysis
+
+---
+
+# 2. Project Objectives
+
+The main objectives of this project are:
+
+* Understand the structure and quality of the healthcare dataset.
+* Extract the required columns for analysis.
+* Identify and handle missing values.
+* Identify and remove duplicate records.
+* Standardize inconsistent data values and formats.
+* Convert columns into appropriate data types.
+* Perform Exploratory Data Analysis using Python.
+* Identify important healthcare KPIs.
+* Create meaningful visualizations.
+* Develop an interactive Power BI dashboard.
+* Identify trends, patterns, and operational issues.
+* Generate actionable business insights from the data.
+
+---
+
+# 3. Dataset Understanding
+
+The dataset contains healthcare-related information about patients, admissions, departments, waiting times, and other operational metrics.
+
+The first step is to understand the dataset before performing any transformation.
+
+### Initial Data Checks
+
+The following checks are performed:
+
+* Number of rows and columns
+* Column names
+* Data types
+* Missing values
+* Duplicate records
+* Unique values
+* Numerical statistics
+* Categorical values
+* Minimum and maximum values
+* Outliers and unusual values
+
+### Python Analysis
+
+```python
+df.shape
+df.columns
+df.info()
+df.describe()
+df.isnull().sum()
+df.duplicated().sum()
+```
+
+These checks help understand the overall structure and quality of the dataset.
+
+---
+
+# 4. Column Extraction
+
+Not every column is required for every analysis. Therefore, relevant columns are selected based on the project objectives.
+
+For example, healthcare analysis may require columns related to:
+
+* Patient information
+* Patient admission status
+* Department
+* Waiting time
+* Age
+* Gender
+* Visit date
+* Medical information
+* Patient satisfaction
+* Operational metrics
+
+### Example
+
+```python
+selected_columns = [
+    'Patient ID',
+    'Age',
+    'Gender',
+    'Department',
+    'Admission Status',
+    'Waiting Time',
+    'Visit Date'
+]
+
+df_selected = df[selected_columns]
+```
+
+Selecting relevant columns reduces unnecessary data and makes the analysis easier to manage.
+
+---
+
+# 5. Data Cleaning
+
+Data cleaning is performed to improve the quality and reliability of the healthcare dataset.
+
+### Major Data Cleaning Activities
+
+#### Missing Values
+
+Missing values are identified using:
+
+```python
+df.isnull().sum()
+```
+
+Depending on the column and business requirement, missing values can be:
+
+* Removed
+* Replaced with suitable values
+* Filled using mean, median, or mode
+* Treated as a separate category such as "Unknown"
+
+#### Duplicate Records
+
+Duplicate records are identified using:
+
+```python
+df.duplicated().sum()
+```
+
+Duplicates can be removed using:
+
+```python
+df = df.drop_duplicates()
+```
+
+#### Incorrect Data Types
+
+Data types are checked using:
+
+```python
+df.dtypes
+```
+
+Date columns should be converted into proper date formats:
+
+```python
+df['Visit Date'] = pd.to_datetime(df['Visit Date'])
+```
+
+Numerical columns should be converted into appropriate numerical data types when required.
+
+---
+
+# 6. Data Standardization
+
+Healthcare data may contain inconsistent values representing the same category.
+
+For example:
+
+```text
+Male
+male
+M
+MALE
+```
+
+These values should be standardized into one consistent format.
+
+### Example
+
+```python
+df['Gender'] = df['Gender'].str.strip().str.upper()
+```
+
+Similarly, department names can be standardized:
+
+```python
+df['Department'] = df['Department'].str.strip().str.title()
+```
+
+### Standardization Activities
+
+* Remove leading and trailing spaces
+* Standardize capitalization
+* Standardize category names
+* Standardize date formats
+* Standardize numerical formats
+* Correct inconsistent labels
+* Convert columns to appropriate data types
+
+This ensures that the same category is not counted as multiple categories during analysis.
+
+---
+
+# 7. Exploratory Data Analysis (EDA)
+
+After cleaning and standardizing the data, Exploratory Data Analysis is performed using Python.
+
+EDA helps identify patterns, trends, relationships, and unusual observations.
+
+### Numerical Analysis
+
+Important statistical measures include:
+
+* Count
+* Mean
+* Median
+* Minimum
+* Maximum
+* Standard deviation
+
+Example:
+
+```python
+df.describe()
+```
+
+### Categorical Analysis
+
+The frequency of categories can be analyzed using:
+
+```python
+df['Department'].value_counts()
+```
+
+This helps identify departments with the highest number of patients.
+
+---
+
+# 8. Healthcare KPI Development
+
+KPIs are created to measure healthcare operational performance.
+
+Important KPIs for this project include:
+
+### Total Patients
+
+Measures the total number of patient records.
+
+```text
+Total Patients = COUNT(Patient ID)
+```
+
+### Total Admissions
+
+Measures the number of admitted patients.
+
+```text
+Total Admissions = COUNT(Admitted Patients)
+```
+
+### Admission Rate
+
+Measures the percentage of patients who were admitted.
+
+```text
+Admission Rate = Total Admissions / Total Patients × 100
+```
+
+### Average Waiting Time
+
+Measures the average time patients wait before receiving service.
+
+```text
+Average Waiting Time = Average(Waiting Time)
+```
+
+### Department Patient Volume
+
+Measures the number of patients handled by each department.
+
+```text
+Department Volume = COUNT(Patient ID)
+```
+
+### Patient Distribution
+
+Analyzes patients based on:
+
+* Age
+* Gender
+* Department
+* Admission status
+* Other available categories
+
+---
+
+# 9. Power BI Dashboard
+
+The cleaned and transformed healthcare dataset is connected to Power BI to create an interactive dashboard.
+
+### KPI Cards
+
+The dashboard can contain KPI cards for:
+
+* **Total Patients**
+* **Total Admissions**
+* **Admission Rate**
+* **Average Waiting Time**
+* **Average Patient Age**
+* **Department Volume**
+
+### Visualizations
+
+The following visualizations can be used:
+
+#### Patient Volume by Department
+
+A bar chart can be used to compare the number of patients across departments.
+
+#### Admission Status
+
+A donut or column chart can show:
+
+* Admitted patients
+* Not admitted patients
+
+#### Patient Trends
+
+A line chart can show patient volume or admissions over time.
+
+#### Waiting Time Analysis
+
+A bar chart can compare average waiting time across departments.
+
+#### Patient Demographics
+
+Charts can show patient distribution by:
+
+* Age groups
+* Gender
+* Department
+
+#### Department Performance
+
+A combination of KPIs and charts can be used to compare department-level performance.
+
+---
+
+# 10. DAX Measures
+
+Power BI DAX measures can be created for KPI calculations.
+
+### Total Patients
+
+```DAX
+Total Patients = COUNTROWS('Healthcare Data')
+```
+
+### Total Admissions
+
+```DAX
+Total Admissions =
+CALCULATE(
+    COUNTROWS('Healthcare Data'),
+    'Healthcare Data'[Admission Status] = "Admitted"
+)
+```
+
+### Admission Rate
+
+```DAX
+Admission Rate =
+DIVIDE(
+    [Total Admissions],
+    [Total Patients],
+    0
+)
+```
+
+### Average Waiting Time
+
+```DAX
+Average Waiting Time =
+AVERAGE('Healthcare Data'[Waiting Time])
+```
+
+> Column names should be adjusted to match the actual dataset.
+
+---
+
+# 11. Insights from the Analysis
+
+The purpose of the dashboard is not only to create visualizations but also to identify meaningful insights.
+
+Examples of insights that can be investigated include:
+
+### Patient Volume
+
+Identify which departments receive the highest number of patients.
+
+### Admission Trends
+
+Determine whether admissions are increasing or decreasing over time.
+
+### Waiting Time
+
+Identify departments with higher average waiting times and investigate possible operational bottlenecks.
+
+### Patient Demographics
+
+Understand the distribution of patients by age and gender.
+
+### Department Performance
+
+Compare patient volume, admissions, and waiting time across departments.
+
+### Operational Issues
+
+Identify unusual patterns, outliers, or departments that require further investigation.
+
+**Important:** The final report should use the actual findings from your dataset rather than claiming specific results without calculating them.
+
+---
+
+# 12. Business Questions Answered
+
+The project can answer important healthcare business questions such as:
+
+1. How many patients were recorded?
+2. What percentage of patients were admitted?
+3. Which department handled the most patients?
+4. Which department had the highest average waiting time?
+5. What are the major patient demographics?
+6. How does patient volume change over time?
+7. Which departments show unusual performance?
+8. What trends can be observed in patient admissions?
+9. Are there significant differences in waiting times between departments?
+10. Which healthcare KPIs require management attention?
+
+---
+
+# 13. Project Workflow
+
+The complete project follows this workflow:
+
+**Raw Healthcare Data**
+
+↓
+
+**Data Understanding**
+
+↓
+
+**Column Extraction**
+
+↓
+
+**Data Cleaning**
+
+↓
+
+**Missing Value Handling**
+
+↓
+
+**Duplicate Removal**
+
+↓
+
+**Data Standardization**
+
+↓
+
+**Data Type Conversion**
+
+↓
+
+**Exploratory Data Analysis**
+
+↓
+
+**KPI Development**
+
+↓
+
+**Power BI Visualization**
+
+↓
+
+**Dashboard Development**
+
+↓
+
+**Insight Generation**
+
+↓
+
+**Business Recommendations**
+
+---
+
+# 14. Key Skills Demonstrated
+
+This project demonstrates practical skills in:
+
+* **Python**
+* **Pandas**
+* **NumPy**
+* **Exploratory Data Analysis (EDA)**
+* **Data Cleaning**
+* **Data Validation**
+* **Data Transformation**
+* **Data Standardization**
+* **Missing Value Handling**
+* **Duplicate Detection**
+* **Outlier Analysis**
+* **KPI Development**
+* **Power BI**
+* **DAX**
+* **Data Visualization**
+* **Business Analysis**
+* **Insight Generation**
+
+---
+
+# 15. Project Outcome
+
+The Healthcare Operations & Performance Analytics project demonstrates an end-to-end data analytics workflow, starting from raw healthcare data and progressing through **data cleaning, column extraction, standardization, EDA, KPI development, visualization, dashboard creation, and business insight generation**.
+
+The project demonstrates how raw healthcare data can be transformed into structured and meaningful information that helps stakeholders understand **patient volume, admission patterns, waiting times, department performance, and operational trends**.
